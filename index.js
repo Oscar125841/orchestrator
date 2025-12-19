@@ -25,10 +25,7 @@ app.get("/pipeline", async (req, res) => {
         const d = acquireData.data;
         console.log("[ORCHESTRATOR] Datos recibidos de Acquire:", d);
 
-        // 2. PREPARAR FEATURES (Transformar Objeto -> Array)
-        // El orden DEBE ser el mismo con el que se entrenó la IA.
-        // Asumimos: [hoy, ayer, antes_ayer, dia_semana, mes, dia_mes, EXTRA]
-        // Tu modelo espera 7 inputs. Acquire da 6. Añadimos un 0 al final (ej. festivo/hora).
+
         const features = [
             d.consumo_hoy,
             d.consumo_ayer,
@@ -36,7 +33,7 @@ app.get("/pipeline", async (req, res) => {
             d.dia_semana,
             d.mes,
             d.dia_del_mes,
-            0 // <--- INPUT EXTRA para cumplir con inputDim: 7
+            0 
         ];
 
         console.log("[ORCHESTRATOR] Features preparadas:", features);
